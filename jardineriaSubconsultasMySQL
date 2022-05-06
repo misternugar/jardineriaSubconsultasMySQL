@@ -33,3 +33,15 @@ WHERE
         ORDER BY SUM(D.cantidad) DESC
         LIMIT 1);
         
+-- 4.Los clientes cuyo límite de crédito sea mayor que los pagos que haya realizado. 
+-- (Sin utilizar INNER JOIN).
+
+SELECT 
+    C.*
+FROM
+    cliente C
+WHERE
+    C.limite_credito > (SELECT 
+            SUM(P.total)
+        FROM
+            pago P);
