@@ -11,14 +11,14 @@ SELECT * FROM jardineria.resumen_pedidos;
 -- (Tenga en cuenta que tendrá que calcular cuál es el número total de unidades que se han vendido de cada producto a partir de los datos de la tabla detalle_pedido)
 
 SELECT 
-    P.nombre
+    P.nombre, P.codigo_producto
 FROM
-    producto p
-        INNER JOIN
-    detalle_pedido D ON P.codigo_producto = D.codigo_producto
+    producto P
 WHERE
-    D.cantidad >= (SELECT 
-            MAX(cantidad)
+    P.codigo_producto = (SELECT 
+            D.codigo_producto
         FROM
-            detalle_pedido);
-
+            detalle_pedido D
+        GROUP BY D.codigo_producto
+        ORDER BY SUM(D.cantidad) DESC
+        LIMIT 1);
