@@ -58,14 +58,33 @@ WHERE
         FROM
             producto P2);
 
--- 6.alter
+-- 6.Devuelve el producto que menos unidades tiene en stock.
 
-
+SELECT 
+    nombre
+FROM
+    producto
+WHERE
+    cantidad_en_stock = (SELECT 
+            MIN(P2.cantidad_en_stock)
+        FROM
+            producto P2);
 
 -- 7.Devuelve el nombre, los apellidos y el email de los empleados que están a cargo de Alberto Soria.
 
-
-
+SELECT 
+    nombre, apellido1, apellido2, email
+FROM
+    empleado
+WHERE
+    codigo_jefe = (SELECT 
+            codigo_empleado
+        FROM
+            empleado
+        WHERE
+            nombre LIKE 'Alberto'
+                AND apellido1 = 'Soria');
+                
 -- Subconsultas con ALL y ANY
 -- 8.Devuelve el nombre del cliente con mayor límite de crédito.
 
