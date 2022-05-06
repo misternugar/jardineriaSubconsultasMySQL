@@ -48,7 +48,15 @@ WHERE
             
 -- 5.Devuelve el producto que más unidades tiene en stock.
 
-
+SELECT 
+    nombre
+FROM
+    producto
+WHERE
+    cantidad_en_stock = (SELECT 
+            MAX(P2.cantidad_en_stock)
+        FROM
+            producto P2);
 
 -- 6.alter
 
